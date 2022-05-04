@@ -1,0 +1,102 @@
+version: '3.4'
+
+services: 
+  elasticsearch:
+    hostname: elasticsearch
+    image: "elasticsearch:${ES_VERSION}"
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./docker_es/data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  logstash:
+    hostname: logstash
+    depends_on:
+      - elasticsearch
+    image: "logstash:${ES_VERSION}"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5044:5044"
+      - "15044:15044/tcp"
+    links:
+      - elasticsearch
+
+  kibana:
+    hostname: kibana
+    depends_on:
+      - elasticsearch
+    image: "kibana:${ES_VERSION}"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    volumes:
+      - /etc/localtime:/etc/localtime
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch
+    
+  zoo1:
+    networks:
+      - default
+    image: zookeeper:3.5.8
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      TZ: Asia/Shanghai
+
+  zoo2:
+    networks:
+      - default
+    image: zookeeper:3.5.8
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      TZ: Asia/Shanghai
+
+  zoo3:
+    networks:
+      - default
+    image: zookeeper:3.5.8
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+      TZ: Asia/Shanghai
+
+  moonapp1:
+    networks:
+      - default
+    hostname: moonapp1
+    restart: always
+    build: ./moon-app1
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8011:7001"
+
+  moonapp2:
+    networks:
+      - default
+    hostname: moonapp2
+    restart: always
+    build: ./moon-app2
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8012:7001"
