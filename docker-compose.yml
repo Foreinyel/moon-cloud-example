@@ -2,6 +2,7 @@ version: '3.4'
 
 services: 
   elasticsearch:
+    # name: moon-elasticsearch
     restart: always
     hostname: elasticsearch
     image: "elasticsearch:${ES_VERSION}"
@@ -15,6 +16,7 @@ services:
       - "9300:9300"
 
   logstash:
+    # name: moon-logstash
     restart: always
     hostname: logstash
     depends_on:
@@ -29,6 +31,7 @@ services:
       - elasticsearch
 
   kibana:
+    # name: moon-kibana
     restart: always
     hostname: kibana
     depends_on:
@@ -44,6 +47,7 @@ services:
       - elasticsearch
     
   zoo1:
+    # name: moon-zoo1
     networks:
       - default
     image: zookeeper:3.5.8
@@ -57,6 +61,7 @@ services:
       TZ: Asia/Shanghai
 
   zoo2:
+    # name: moon-zoo2
     networks:
       - default
     image: zookeeper:3.5.8
@@ -70,6 +75,7 @@ services:
       TZ: Asia/Shanghai
 
   zoo3:
+    # name: moon-zoo3
     networks:
       - default
     image: zookeeper:3.5.8
@@ -83,6 +89,7 @@ services:
       TZ: Asia/Shanghai
 
   kafka:
+    # name: moon-kafka
     image: 'bitnami/kafka:2.8.0'
     ports:
       - '9092:9092'
@@ -101,21 +108,68 @@ services:
       - KAFKA_CFG_LOG_RETENTION_HOURS=6
       # 开启JMX监控
       - JMX_PORT=9999
+      - TZ=Asia/Shanghai
     #volumes:
       #- ./kafka:/bitnami/kafka
     depends_on:
       - zoo1
   # Web 管理界面 另外也可以用exporter+prometheus+grafana的方式来监控 https://github.com/danielqsj/kafka_exporter
   kafka_manager:
+    # name: moon-kafka-manager
     image: 'hlebalbau/kafka-manager:latest'
     ports:
       - "9000:9000"
     environment:
       ZK_HOSTS: "zoo1:2181"
       APPLICATION_SECRET: letmein
+      TZ: Asia/Shanghai
     depends_on:
       - zoo1
       - kafka
+
+  grafana:
+    # name: moon-grafana
+    image: 'grafana/grafana:main'
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    ports:
+      - "3001:3000"
+  
+  influxdb:
+    # name: moon-influxdb
+    image: 'influxdb:latest'
+    restart: always
+    hostname: influxdb
+    environment:
+      - INFLUXDB_DB=telegraf
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=Welcome1
+      - DOCKER_INFLUXDB_INIT_ORG=telegraf_org
+      - DOCKER_INFLUXDB_INIT_BUCKET=telegraf_bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=admin_token
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./influxdb/data:/usr/share/influxdb/data
+    ports:
+      - "8086:8086"
+  
+  telegraf:
+    # name: moon-telegraf
+    image: 'telegraf:alpine'
+    restart: always
+    hostname: telegraf
+    ports:
+      - "8125:8125/udp"
+    depends_on:
+      - influxdb
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+      - /etc/localtime:/etc/localtime
+    environment:
+      - TZ=Asia/Shanghai
+    
 
   # moonapp1:
   #   networks:
