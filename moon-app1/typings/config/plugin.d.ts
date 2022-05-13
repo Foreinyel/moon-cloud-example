@@ -16,6 +16,7 @@ import 'egg-jsonp';
 import 'egg-view';
 import '@hemyn/egg-rpc';
 import '@hemyn/moon-kafka';
+import '@hemyn/moon-statsd';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -33,5 +34,6 @@ declare module 'egg' {
     view?: EggPluginItem;
     rpc?: EggPluginItem;
     kafka?: EggPluginItem;
+    statsd?: EggPluginItem;
   }
 }

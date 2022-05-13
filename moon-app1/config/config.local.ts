@@ -24,5 +24,11 @@ export default () => {
     kafkaHost: "127.0.0.1:9092",
   };
 
+  // statsd
+  config.statsd = {
+    host: "localhost",
+    port: 8125,
+  };
+
   return config;
 };

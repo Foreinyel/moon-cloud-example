@@ -7,6 +7,8 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = "some-key";
 
+  config.appName = "moon-app1";
+
   // add your egg config in here
   // config.middleware = ["requestLog"];
 

@@ -26,6 +26,16 @@ export default class HomeController extends Controller {
         }
       }
     );
+    // const responseTime = Math.floor(Math.random() * 100);
+    // ctx.statsd.timing("api", responseTime, function (error, bytes) {
+    //   if (error) {
+    //     console.error(error);
+    //   } else {
+    //     console.log(
+    //       `Successfully sent ${bytes} bytes, responseTime ${responseTime}ms`
+    //     );
+    //   }
+    // });
   }
 
   public async rpc() {
@@ -34,5 +44,10 @@ export default class HomeController extends Controller {
       name: "name",
       group: "group",
     });
+  }
+
+  public async user() {
+    const { ctx } = this;
+    ctx.body = ctx.params.id;
   }
 }
