@@ -1,0 +1,60 @@
+version: '3.4'
+
+networks:
+  moon-cloud:
+    external: true
+
+services: 
+  elasticsearch:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-elasticsearch
+    restart: always
+    hostname: elasticsearch
+    image: "elasticsearch:${ES_VERSION}"
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./docker_es/data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  logstash:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-logstash
+    restart: always
+    hostname: logstash
+    depends_on:
+      - elasticsearch
+    image: "logstash:${ES_VERSION}"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5044:5044"
+      - "15044:15044/tcp"
+    links:
+      - elasticsearch
+
+  kibana:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-kibana
+    restart: always
+    hostname: kibana
+    depends_on:
+      - elasticsearch
+    image: "kibana:${ES_VERSION}"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    volumes:
+      - /etc/localtime:/etc/localtime
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch

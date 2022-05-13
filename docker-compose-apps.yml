@@ -1,0 +1,30 @@
+version: '3.4'
+
+networks:
+  moon-cloud:
+    external: true
+
+services: 
+  moonapp1:
+    networks:
+      - default
+      - moon-cloud
+    hostname: moonapp1
+    restart: always
+    build: ./moon-app1
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8011:7001"
+
+  moonapp2:
+    networks:
+      - default
+      - moon-cloud
+    hostname: moonapp2
+    restart: always
+    build: ./moon-app2
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8012:7001"

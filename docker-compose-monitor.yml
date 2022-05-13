@@ -1,0 +1,59 @@
+version: '3.4'
+
+networks:
+  moon-cloud:
+    external: true
+
+services: 
+  grafana:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-grafana
+    image: 'grafana/grafana:main'
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    ports:
+      - "3001:3000"
+  
+  influxdb:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-influxdb
+    image: 'influxdb:latest'
+    restart: always
+    hostname: influxdb
+    environment:
+      - INFLUXDB_DB=telegraf
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=Welcome1
+      - DOCKER_INFLUXDB_INIT_ORG=telegraf_org
+      - DOCKER_INFLUXDB_INIT_BUCKET=telegraf_bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=admin_token
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./influxdb2:/var/lib/influxdb2
+    ports:
+      - "8086:8086"
+  
+  telegraf:
+    networks:
+      - default
+      - moon-cloud
+    # name: moon-telegraf
+    image: 'telegraf:alpine'
+    restart: always
+    hostname: telegraf
+    ports:
+      - "8125:8125/udp"
+    depends_on:
+      - influxdb
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+      - /etc/localtime:/etc/localtime
+    environment:
+      - TZ=Asia/Shanghai
+    
