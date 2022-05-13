@@ -6,13 +6,17 @@ const plugin: EggPlugin = {
   //   enable: true,
   //   package: 'egg-view-nunjucks',
   // },
-  // rpc: {
-  //   enable: true,
-  //   package: "@hemyn/egg-rpc",
-  // },
+  rpc: {
+    enable: true,
+    package: "@hemyn/egg-rpc",
+  },
   kafka: {
     enable: true,
     package: "@hemyn/moon-kafka",
+  },
+  statsd: {
+    enable: true,
+    package: "@hemyn/moon-statsd",
   },
 };
 
