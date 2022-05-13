@@ -6,30 +6,26 @@ export default (appInfo: EggAppInfo) => {
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
   config.keys = "some-key";
-  config.appName = "moon-app2";
+  config.appName = "moon-app3";
 
   // add your egg config in here
   // config.middleware = ["requestLog"];
 
   // zk
-  config.rpc = {
-    registry: {
-      address: "zoo2:2181",
-    },
-    client: {
-      responseTimeout: 3000,
-    },
-    server: {
-      namespace: "org.eggjs.rpc.test",
-      codecType: "hessian2",
-    },
-  };
+  // config.rpc = {
+  //   registry: {
+  //     address: "zoo2:2181",
+  //   },
+  //   client: {
+  //     responseTimeout: 3000,
+  //   },
+  // };
 
   // logstash
-  config.logstash = {
-    host: "logstash",
-    port: 15044,
-  };
+  // config.logstash = {
+  //   host: "logstash",
+  //   port: 15044,
+  // };
 
   config.onerror = {
     errorPageUrl: (err, ctx) => {

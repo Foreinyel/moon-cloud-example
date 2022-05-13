@@ -1,8 +1,8 @@
 export const services = [
   {
-    appName: "rpc-demo",
+    appName: "moon-app3",
     api: {
-      ProtoService: "org.eggjs.rpc.test.ProtoService",
+      UserService: "org.moon.rpc.moonapp3.UserService",
     },
   },
 ];

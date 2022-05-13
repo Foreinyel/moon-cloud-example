@@ -1,0 +1,17 @@
+version: "3.1"
+
+networks:
+  app_net_1:
+    external: true
+services:
+  moon-app3:
+    networks:
+      - default
+      - app_net_1
+    hostname: moon-app3
+    restart: always
+    build: .
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8011:7001"

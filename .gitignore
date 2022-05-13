@@ -3,3 +3,13 @@ docker_es/
 node_modules/
 
 influxdb2/
+
+src/main
+
+target
+
+*.java
+
+
+pom.xml
+apiMeta.json

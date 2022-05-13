@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package org.moon.rpc.moonapp3;
+// option java_multiple_files = true; // 可选
+// option java_outer_classname = "ProtoServiceModels"; // 可选
+
+service UserService {
+    rpc getUser (EchoRequest) returns (EchoResponse) {}
+}
+
+message EchoRequest {
+    int32 userId = 1;
+    string username = 2;
+}
+
+message EchoResponse {
+    int32 code = 1;
+    Data data = 2;
+}
+
+message Data {
+    int32 userId = 1;
+    string username = 2;
+}
