@@ -4,6 +4,12 @@ node_modules/
 
 influxdb2/
 
+grafana/
+
+mysql/
+
+redis/
+
 src/main
 
 target

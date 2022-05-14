@@ -9,6 +9,7 @@ services:
     networks:
       - default
       - moon-cloud
+    container_name: moonapp1
     hostname: moonapp1
     restart: always
     build: ./moon-app1
@@ -21,6 +22,7 @@ services:
     networks:
       - default
       - moon-cloud
+    container_name: moonapp2
     hostname: moonapp2
     restart: always
     build: ./moon-app2

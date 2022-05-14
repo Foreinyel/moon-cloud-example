@@ -6,6 +6,7 @@ networks:
 
 services: 
   elasticsearch:
+    container_name: elasticsearch
     networks:
       - default
       - moon-cloud
@@ -23,6 +24,7 @@ services:
       - "9300:9300"
 
   logstash:
+    container_name: logstash
     networks:
       - default
       - moon-cloud
@@ -41,6 +43,7 @@ services:
       - elasticsearch
 
   kibana:
+    container_name: kibana
     networks:
       - default
       - moon-cloud

@@ -6,6 +6,7 @@ networks:
 
 services: 
   zoo1:
+    container_name: zoo1
     networks:
       - default
       - moon-cloud
@@ -20,6 +21,7 @@ services:
       TZ: Asia/Shanghai
 
   zoo2:
+    container_name: zoo2
     networks:
       - default
       - moon-cloud
@@ -34,6 +36,7 @@ services:
       TZ: Asia/Shanghai
 
   zoo3:
+    container_name: zoo3
     networks:
       - default
       - moon-cloud

@@ -6,6 +6,7 @@ networks:
 
 services: 
   grafana:
+    container_name: grafana
     networks:
       - default
       - moon-cloud
@@ -14,10 +15,12 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
       - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana:/var/lib/grafana
     ports:
       - "3001:3000"
   
   influxdb:
+    container_name: influxdb
     networks:
       - default
       - moon-cloud
@@ -40,6 +43,7 @@ services:
       - "8086:8086"
   
   telegraf:
+    container_name: telegraf
     networks:
       - default
       - moon-cloud
