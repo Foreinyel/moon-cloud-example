@@ -31,9 +31,9 @@ export default () => {
   };
 
   // kafka
-  config.kafka = {
-    kafkaHost: "127.0.0.1:9092",
-  };
+  // config.kafka = {
+  //   kafkaHost: "127.0.0.1:9092",
+  // };
 
   // statsd
   config.statsd = {

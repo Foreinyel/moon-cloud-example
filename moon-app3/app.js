@@ -1,20 +1,39 @@
-export default class AppBootHook {
-  app;
+"use strict";
+module.exports = class AppBootHook {
   constructor(app) {
+    console.log(
+      `🚀 ~ file: app.js ~ line 4 ~ AppBootHook ~ constructor ~ app`,
+      app
+    );
+
     this.app = app;
   }
 
   async didReady() {
-    this.app.logger.info("didReady");
+    // console.log(
+    //   `🚀 ~ file: app.js ~ line 4 ~ AppBootHook ~ constructor ~ app`,
+    //   "didReady232"
+    // );
+    this.app.logger.info("didReady232");
     // try {
     //   const consumer = this.app.kafka.createConsumer(
     //     [
     //       {
     //         topic: "topic001",
+    //         partition: 0,
     //       },
     //     ],
     //     {
-    //       groupId: "moon-app2",
+    //       groupId: "moon-app3",
+    //       // Auto commit config
+    //       autoCommit: true,
+    //       autoCommitIntervalMs: 5000,
+    //       // Fetch message config
+    //       fetchMaxWaitMs: 100,
+    //       fetchMinBytes: 1,
+    //       fetchMaxBytes: 1024 * 1024,
+    //       fromOffset: false,
+    //       encoding: "utf8",
     //     }
     //   );
 
@@ -34,4 +53,4 @@ export default class AppBootHook {
     //   );
     // }
   }
-}
+};
