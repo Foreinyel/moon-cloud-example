@@ -12,24 +12,24 @@ export default (appInfo: EggAppInfo) => {
   // config.middleware = ["requestLog"];
 
   // zk
-  config.rpc = {
-    registry: {
-      address: "zoo2:2181",
-    },
-    client: {
-      responseTimeout: 3000,
-    },
-    server: {
-      namespace: "org.eggjs.rpc.test",
-      codecType: "hessian2",
-    },
-  };
+  // config.rpc = {
+  //   registry: {
+  //     address: "zoo2:2181",
+  //   },
+  //   client: {
+  //     responseTimeout: 3000,
+  //   },
+  //   server: {
+  //     namespace: "org.eggjs.rpc.test",
+  //     codecType: "hessian2",
+  //   },
+  // };
 
   // logstash
-  config.logstash = {
-    host: "logstash",
-    port: 15044,
-  };
+  // config.logstash = {
+  //   host: "logstash",
+  //   port: 15044,
+  // };
 
   config.onerror = {
     errorPageUrl: (err, ctx) => {

@@ -25,10 +25,10 @@ export default () => {
   };
 
   // logstash
-  config.logstash = {
-    host: "127.0.0.1",
-    port: 15044,
-  };
+  // config.logstash = {
+  //   host: "127.0.0.1",
+  //   port: 15044,
+  // };
 
   // kafka
   // config.kafka = {
@@ -36,10 +36,10 @@ export default () => {
   // };
 
   // statsd
-  config.statsd = {
-    host: "localhost",
-    port: 8125,
-  };
+  // config.statsd = {
+  //   host: "localhost",
+  //   port: 8125,
+  // };
 
   return config;
 };

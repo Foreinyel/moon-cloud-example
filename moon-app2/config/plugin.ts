@@ -14,10 +14,10 @@ const plugin: EggPlugin = {
   //   enable: true,
   //   package: "@hemyn/moon-kafka",
   // },
-  statsd: {
-    enable: true,
-    package: "@hemyn/moon-statsd",
-  },
+  // statsd: {
+  //   enable: true,
+  //   package: "@hemyn/moon-statsd",
+  // },
 };
 
 export default plugin;
