@@ -1,11 +1,6 @@
 "use strict";
 module.exports = class AppBootHook {
   constructor(app) {
-    console.log(
-      `🚀 ~ file: app.js ~ line 4 ~ AppBootHook ~ constructor ~ app`,
-      app
-    );
-
     this.app = app;
   }
 

@@ -18,3 +18,8 @@ config/**/*.js
 app/**/*.map
 test/**/*.map
 config/**/*.map
+
+
+!**/proxy/*.js
+!**/proxy_class/*.js
+!**/consumer/*.js

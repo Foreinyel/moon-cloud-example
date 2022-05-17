@@ -15,8 +15,8 @@ import 'egg-static';
 import 'egg-jsonp';
 import 'egg-view';
 import '@hemyn/egg-rpc';
-import '@hemyn/moon-kafka';
 import '@hemyn/moon-statsd';
+import '@hemyn/egg-rabbitmq';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -33,7 +33,7 @@ declare module 'egg' {
     jsonp?: EggPluginItem;
     view?: EggPluginItem;
     rpc?: EggPluginItem;
-    kafka?: EggPluginItem;
     statsd?: EggPluginItem;
+    rabbitmq?: EggPluginItem;
   }
 }

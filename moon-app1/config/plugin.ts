@@ -18,6 +18,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: "@hemyn/moon-statsd",
   },
+  rabbitmq: {
+    enable: true,
+    package: "@hemyn/egg-rabbitmq",
+  },
 };
 
 export default plugin;

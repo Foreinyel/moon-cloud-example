@@ -25,10 +25,10 @@ export default () => {
   };
 
   // logstash
-  // config.logstash = {
-  //   host: "127.0.0.1",
-  //   port: 15044,
-  // };
+  config.logstash = {
+    host: "127.0.0.1",
+    port: 15044,
+  };
 
   // kafka
   // config.kafka = {
@@ -36,10 +36,44 @@ export default () => {
   // };
 
   // statsd
-  // config.statsd = {
-  //   host: "localhost",
-  //   port: 8125,
-  // };
+  config.statsd = {
+    host: "localhost",
+    port: 8125,
+  };
+
+  // rabbitmq
+  config.rabbitmq = {
+    address: "amqp://localhost:5672",
+    queues: [
+      {
+        queue: "log3",
+        queueOption: {
+          durable: true,
+        },
+        consumer: "",
+        consumerOption: {
+          noAck: true,
+        },
+        consume: true,
+      },
+      {
+        queue: "log2",
+        queueOption: {
+          durable: true,
+        },
+        exchange: "logs",
+        exchangeOption: {
+          type: "fanout",
+          durable: true,
+        },
+        consumer: "",
+        consumerOption: {
+          noAck: true,
+        },
+        produce: true,
+      },
+    ],
+  };
 
   return config;
 };

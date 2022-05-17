@@ -19,3 +19,7 @@ target
 
 pom.xml
 apiMeta.json
+
+!**/proxy/*.js
+!**/proxy_class/*.js
+!**/consumer/*.js

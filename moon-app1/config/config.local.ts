@@ -30,5 +30,27 @@ export default () => {
     port: 8125,
   };
 
+  config.rabbitmq = {
+    address: "amqp://localhost:5672",
+    queues: [
+      {
+        queue: "log1",
+        queueOption: {
+          durable: true,
+        },
+        exchange: "logs",
+        exchangeOption: {
+          type: "fanout",
+          durable: true,
+        },
+        consumer: "",
+        consumerOption: {
+          noAck: true,
+        },
+        consume: true,
+      },
+    ],
+  };
+
   return config;
 };
